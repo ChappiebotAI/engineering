@@ -153,7 +153,7 @@ Như vậy chúng ta chỉ cần thay đổi nhỏ trong hàm `create_threads` �
 
         return ret_threads
 ```
-Bạn có thể xem toàn bộ code của general queue runner tại [đây](https://github.com/ChappiebotAI/engineering/blob/master/general_queue_runner/general_queue_runner.py). Để sử dụng general queue runner, bạn cần init nó như với queue runner bình thường với các tham số `feed_dict_funcs`, `feed_tensors`. Các giá trị trong 2 tham số `feed_dict_funcs` và `feed_tensors` phải tương ứng với nhau, ví dụ hàm đọc dữ liệu từ database phải tương ứng với tensor được đọc ra từ đó. Dưới đây là một demo sample sử dụng general queue runner với cả 2 kiểu dữ liệu là fixed shape và dynamic shape:
+Bạn có thể xem toàn bộ code của general queue runner tại [đây](https://github.com/ChappiebotAI/engineering/blob/master/general_queue_runner/general_queue_runner.py). Để sử dụng general queue runner, bạn cần khởi tạo nó như với queue runner bình thường với các tham số `feed_dict_funcs`, `feed_tensors`. Các giá trị trong 2 tham số `feed_dict_funcs` và `feed_tensors` phải tương ứng với nhau, ví dụ hàm đọc dữ liệu từ database phải tương ứng với tensor được đọc ra từ đó. Dưới đây là một demo sample sử dụng general queue runner với cả 2 kiểu dữ liệu là fixed shape và dynamic shape:
 
 ```python
 from __future__ import absolute_import
@@ -273,3 +273,5 @@ if FIXED_TEST: test_fixed_shape(value)
 else: test_dynamic_shape(value)
 
 ```
+
+Một lưu ý nhỏ đối với general queue runner là nó không thể được serialized tới computation graph thông thường được chứa theo định dạng protobuf. Vì thế nó không được đăng ký bởi hàm `register_proto_function` và hàm `to_proto` của nó là không được thực hiện bạn có thể xem nó trong code của general queue runner.
