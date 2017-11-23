@@ -13,6 +13,7 @@ Trong một ứng dụng về học máy thì khâu chuẩn bị dữ liệu ban
 Trong running-time các enqueue operator sẽ được thi hành bởi các threads được tạo ra bởi `tf.train.QueueRunner`. Vài dòng code cuối trong hàm `tf.train.start_queue_runners` sẽ cho chúng ta thấy rõ điều này:
 
 ```python
+    ...
     with sess.graph.as_default():
         threads = []
         for qr in ops.get_collection(collection):
