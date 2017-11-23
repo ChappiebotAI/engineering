@@ -13,15 +13,35 @@ Trong một ứng dụng về học máy thì khâu chuẩn bị dữ liệu ban
 Trong running-time các enqueue operator sẽ được thi hành bởi các threads được tạo ra bởi `tf.train.QueueRunner`. Vài dòng code cuối trong hàm `tf.train.start_queue_runners` sẽ cho chúng ta thấy rõ điều này:
 
 ```python
-  with sess.graph.as_default():
-    threads = []
-    for qr in ops.get_collection(collection):
-        threads.extend(qr.create_threads(sess, coord=coord, daemon=daemon,
+    with sess.graph.as_default():
+        threads = []
+        for qr in ops.get_collection(collection):
+            threads.extend(qr.create_threads(sess, coord=coord, daemon=daemon,
                                        start=start))
-  return threads
+    return threads
 ```
 
-Ở đây tham số `collection` được mặc định là `tf.GraphKeys.QUEUE_RUNNERS`. Trong implemention của `tf.train.QueueRunner` chúng ta chỉ cần quan tâm tới hai hàm `_run` và `create_threads`. Về cơ bản `tf.train.QueueRunner` tạo các threads của nó bằng cách chạy hàm `create_threads` với hàm private `_run` như là thread function để chạy enqueue operator. Bạn chú ý rằng một `tf.train.QueueRunner` có thể chứa nhiều enqueue operator để chạy, và một enqueue operator được chạy bởi một thread. Các enqueue thread được đồng bộ bởi đối tượng `tf.train.coordinator` và mặc định là các daemon threads. Một điều khá may mắn là các enqueue operator hỗ trợ feed_dict mechanism, nghĩa là chúng ta có thể thực thi câu lệnh `session.run(enqueue, feed_dict={feed_tensors: data_to_feed})` điều này không được nói tới rõ ràng trong tensorflow document. Vì thế, chúng tôi thay đổi một chút hàm `_run` để nó có thể làm việc với feed_dict mechanism bằng cách thêm hai tham số cho hàm này là `feed_dict_fn` và `feed_tensor`. Mục đích của hàm `feed_dict_fn` là để lấy dữ liệu từ source và feed vào `feed_tensor`:
+Ở đây tham số `collection` được mặc định là `tf.GraphKeys.QUEUE_RUNNERS`, nghĩa là các queue runner mặc định sẽ được lấy từ `collection` có tên là `tf.GraphKeys.QUEUE_RUNNERS`. Bạn có thể xem chi tiết hàm `tf.train.add_queue_runner` để thấy rõ điều này, nó đơn giản chỉ thêm queue runner vào trong một collection:
+ ```python
+    def add_queue_runner(qr, collection=ops.GraphKeys.QUEUE_RUNNERS):
+      """Adds a `QueueRunner` to a collection in the graph.
+    
+      When building a complex model that uses many queues it is often difficult to
+      gather all the queue runners that need to be run.  This convenience function
+      allows you to add a queue runner to a well known collection in the graph.
+    
+      The companion method `start_queue_runners()` can be used to start threads for
+      all the collected queue runners.
+    
+      Args:
+        qr: A `QueueRunner`.
+        collection: A `GraphKey` specifying the graph collection to add
+          the queue runner to.  Defaults to `GraphKeys.QUEUE_RUNNERS`.
+      """
+      ops.add_to_collection(collection, qr)
+```
+ 
+ Trong implemention của `tf.train.QueueRunner` chúng ta chỉ cần quan tâm tới hai hàm `_run` và `create_threads`. Về cơ bản `tf.train.QueueRunner` tạo các threads của nó bằng cách chạy hàm `create_threads` với hàm private `_run` như là thread function để chạy enqueue operator. Bạn chú ý rằng một `tf.train.QueueRunner` có thể chứa nhiều enqueue operator để chạy, và một enqueue operator được chạy bởi một thread. Các enqueue thread được đồng bộ bởi đối tượng `tf.train.coordinator` và mặc định là các daemon threads. Một điều khá may mắn là các enqueue operator hỗ trợ feed_dict mechanism, nghĩa là chúng ta có thể thực thi câu lệnh `session.run(enqueue, feed_dict={feed_tensors: data_to_feed})` điều này không được nói tới rõ ràng trong tensorflow document. Vì thế, chúng tôi thay đổi một chút hàm `_run` để nó có thể làm việc với feed_dict mechanism bằng cách thêm hai tham số cho hàm này là `feed_dict_fn` và `feed_tensor`. Mục đích của hàm `feed_dict_fn` là để lấy dữ liệu từ source và feed vào `feed_tensor`:
 
 ```python
     def _run(self, sess, enqueue_op, coord=None, feed_dict_fn=None, feed_tensor=None):
