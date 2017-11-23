@@ -98,7 +98,7 @@ Trong running-time các enqueue operator sẽ được thi hành bởi các thre
 Như vậy chúng ta chỉ cần thay đổi nhỏ trong hàm `create_threads` để cho hàm `_run` làm việc là thêm vào tham số của thread function là `feed_dict_fn` và `feed_tensor`:
 
 ```python
-def create_threads(self, sess, coord=None, daemon=False, start=False):
+    def create_threads(self, sess, coord=None, daemon=False, start=False):
         """Create threads to run the enqueue ops for the given session.
 
         This method requires a session in which the graph was launched.  It creates
