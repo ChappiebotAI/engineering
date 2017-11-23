@@ -132,7 +132,7 @@ def create_threads(self, sess, coord=None, daemon=False, start=False):
 
         return ret_threads
 ```
-Bạn có thể xem toàn bộ code của general queue runner tại [đây](https://github.com/ChappiebotAI/engineering/general_queue_runner/general_queue_runner.py). Để sử dụng general queue runner, bạn cần init nó như với queue runner bình thường với các tham số `feed_dict_funcs`, `feed_tensors`. Các giá trị trong 2 tham số `feed_dict_funcs` và `feed_tensors` phải tương ứng với nhau, ví dụ hàm đọc dữ liệu từ database phải tương ứng với tensor được đọc ra từ đó. Dưới đây là một demo sample sử dụng general queue runner với cả 2 kiểu dữ liệu là fixed shape và dynamic shape:
+Bạn có thể xem toàn bộ code của general queue runner tại [đây](https://github.com/ChappiebotAI/engineering/blob/master/general_queue_runner/general_queue_runner.py). Để sử dụng general queue runner, bạn cần init nó như với queue runner bình thường với các tham số `feed_dict_funcs`, `feed_tensors`. Các giá trị trong 2 tham số `feed_dict_funcs` và `feed_tensors` phải tương ứng với nhau, ví dụ hàm đọc dữ liệu từ database phải tương ứng với tensor được đọc ra từ đó. Dưới đây là một demo sample sử dụng general queue runner với cả 2 kiểu dữ liệu là fixed shape và dynamic shape:
 
 ```python
 from __future__ import absolute_import
