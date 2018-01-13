@@ -33,7 +33,7 @@ Create new SSH key for github by clicking on `New SSH key` button. At here, you 
 
 SSL link, for example: git@github.com:ChappiebotAI/engineering.git
 
-On terminl, do command line:
+On terminal, do command line:
 ```bash
 $ git clone git@github.com:ChappiebotAI/engineering.git
 ```
