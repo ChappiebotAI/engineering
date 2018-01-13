@@ -13,6 +13,7 @@ $ brew install git
 To clone a repo in your local machine. You can use one of two methods.
 
 1. Use https link:
+
 ![](https://chappiebotai.github.io/images/github-quickguide/https-clone.png)
 Https link, for example: https://github.com/ChappiebotAI/engineering.git
 
@@ -21,7 +22,8 @@ On terminal, do command line:
 $ git clone https://github.com/ChappiebotAI/engineering.git
 ```
 
-2. Use SSL link (recommend)
+2. Use SSL link (recommend):
+
 If you use `https` method, you must need password when commit, so you should use `SSL` method for ease of commiting. First, you have to setup public key for github. Please follow this [guide](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/) to create a SSH key. When you finish, your public key file was stored in `~/.ssh`. It is usually named `id_rsa.pub`. Continue, access github settings page, after clicking on  the `SSH and GPGs keys` section:
 ![](https://chappiebotai.github.io/images/github-quickguide/github-setting.png)
 
