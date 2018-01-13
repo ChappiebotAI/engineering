@@ -33,7 +33,7 @@ Create new SSH key for github by clicking on `New SSH key` button. At here, you 
 
 SSL link, for example: git@github.com:ChappiebotAI/engineering.git
 
-On termianl, do command line:
+On terminl, do command line:
 ```bash
 $ git clone git@github.com:ChappiebotAI/engineering.git
 ```
@@ -46,8 +46,8 @@ Assume that you are in a git folder.
 1. Change your some files.
 2. Check status: `git status`
 3. Add changes to commit:
-    - All all changes (include create new files, update old files, delete files...): `git add -A`
-    - Only update old file: `git add -u`
+    - All all changes (include create new files, update old files, deleted files...): `git add -A`
+    - Only update old files: `git add -u`
     - Only a file: `git add file_path`
 4. Check status again before creating a commit: `git status`
 5. Create a commit: `git commit -m "your message"`
