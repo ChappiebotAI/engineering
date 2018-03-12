@@ -7,7 +7,6 @@ Host URL: `cv.chappiebot.com`
 Header:
     X-Api-Key: ...
 
-Method: POST
 
 ### Labelling an image
 
