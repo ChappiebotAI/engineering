@@ -48,3 +48,23 @@ JSON format
             ]
 }
 ```
+
+Example:
+```json
+    {
+        "request_id": 123232323223,
+        "predictions: [
+            {
+                "filename": "image1.jpg",
+                "objects": ["CAR"],
+                "describe": {
+                    "type": "exterior",
+                    "view": "e_rear_view",
+                    "marks": [
+                        ["CAR", (45,37,218,189)]
+                    ]
+                }
+            }
+        ]
+    }
+```
