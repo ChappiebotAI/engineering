@@ -20,6 +20,7 @@ Params:
 ```
 
 Response:
+JSON format
 ```python
 {
     request_id: <request_id>,
