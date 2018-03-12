@@ -53,7 +53,7 @@ Example:
 ```json
     {
         "request_id": 123232323223,
-        "predictions: [
+        "predictions": [
             {
                 "filename": "image1.jpg",
                 "objects": ["CAR"],
