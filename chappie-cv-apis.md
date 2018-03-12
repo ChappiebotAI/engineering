@@ -23,7 +23,7 @@ JSON format
 ```python
 {
     request_id: <request_id>,
-    prediction: [
+    predictions: [
                 {
                     filename: <filename>,
                     objects: [
