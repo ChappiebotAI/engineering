@@ -20,7 +20,7 @@ Params:
 ```
 
 Response:
-```json
+```python
 {
     request_id: <request_id>,
     prediction: [
