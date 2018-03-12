@@ -9,9 +9,9 @@ Header:
 
 Method: POST
 
-### Labeling an image
+### Labelling an image
 
-POST https://cv.chappiebot.com/v2/labeling
+POST https://cv.chappiebot.com/v2/labelling
 
 Params:
 ```
