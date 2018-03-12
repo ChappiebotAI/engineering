@@ -61,7 +61,7 @@ Example:
                     "type": "exterior",
                     "view": "e_rear_view",
                     "marks": [
-                        ["CAR", (45,37,218,189)]
+                        ["CAR", [45,37,218,189]]
                     ]
                 }
             }
